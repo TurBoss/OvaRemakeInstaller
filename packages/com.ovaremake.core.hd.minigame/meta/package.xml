@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
-    <DisplayName>HD</DisplayName>
-    <Description>All HD resources</Description>
+    <DisplayName>HD Minigames</DisplayName>
+    <Description>HD resources for minigames</Description>
     <Version>0.1.0-1</Version>
     <ReleaseDate>2015-08-06</ReleaseDate>
     <!--<Script>installscript.qs</Script>-->
-    <Name>com.ovaremake.hd</Name>
-    <SortingPriority>7</SortingPriority>
+    <Name>com.ovaremake.core.hd.minigame</Name>
+    <SortingPriority>4</SortingPriority>
     <RequiresAdminRights>true</RequiresAdminRights>
 </Package>

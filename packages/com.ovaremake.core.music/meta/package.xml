@@ -5,7 +5,7 @@
     <Version>0.1.0-1</Version>
     <ReleaseDate>2015-08-06</ReleaseDate>
     <!--<Script>installscript.qs</Script>-->
-    <Name>com.ovaremake.music</Name>
+    <Name>com.ovaremake.core.music</Name>
     <SortingPriority>3</SortingPriority>
     <RequiresAdminRights>true</RequiresAdminRights>
 </Package>

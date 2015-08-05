@@ -14,7 +14,7 @@ function Component() {
 Component.prototype.installerLoaded = function()
 {
 
-    installer.componentByName("com.ovaremake.core").setValue("Default", true);
+    installer.componentByName("com.ovaremake.core.es").setValue("Default", true);
     
     ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.\Final Fantasy VII\AppPath"));
     if ( !ff7)
@@ -60,6 +60,7 @@ Component.prototype.targetChanged = function (text) {
         widget.complete = false;
     }
 }
+
 /*
 Component.prototype.createOperations = function()
 {
