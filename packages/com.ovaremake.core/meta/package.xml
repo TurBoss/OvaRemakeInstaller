@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>FF7 OVA Remake Core</DisplayName>
+    <Description>Minimal Files needed to play the OVA</Description>
+    <Version>0.1.0-1</Version>
+    <ReleaseDate>2015-08-06</ReleaseDate>
+    <Script>installscript.qs</Script>
+    <Licenses>
+        <License name="Readme" file="Readme.txt"/>
+    </Licenses>
+    <Name>com.ovaremake.core</Name>
+    <SortingPriority>10</SortingPriority>
+    <RequiresAdminRights>true</RequiresAdminRights>
+    
+    
+    <UserInterfaces>
+        <UserInterface>targetwidget.ui</UserInterface>
+    </UserInterfaces>
+    
+</Package>
