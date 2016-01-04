@@ -8,8 +8,12 @@ var Dir = new function () {
 
 function Component() {
     component.loaded.connect(this, Component.prototype.installerLoaded);
+    
+    ComponentSelectionPage = gui.pageById(QInstaller.ComponentSelection);
+    
     installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
-    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    //installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
 }
 
 Component.prototype.installerLoaded = function()
@@ -28,10 +32,21 @@ Component.prototype.installerLoaded = function()
             widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
         }
     }
-    
+
     if (installer.addWizardPage(component, "ComponentWidget", QInstaller.ComponentSelection)) {
         var widget = gui.pageWidgetByObjectName("DynamicComponentWidget");
         if (widget != null) {
+            widget.windowTitle = "Components";
+            
+            widget.widget_language.english_install.toggled.connect(this, Component.prototype.englishInstallToggled);
+            widget.widget_language.spanish_install.toggled.connect(this, Component.prototype.spanishInstallToggled);
+            
+            
+            widget.widget_music.original.toggled.connect(this, Component.prototype.originalMusicToggled);
+            widget.widget_music.orchestra.toggled.connect(this, Component.prototype.orchestraMusicToggled);
+            widget.widget_music.custom.toggled.connect(this, Component.prototype.customMusicToggled);
+            
+            
         }
     }
 }
@@ -63,4 +78,42 @@ Component.prototype.targetChanged = function (text) {
         }
         widget.complete = false;
     }
+}
+
+Component.prototype.englishInstallToggled = function (checked) {
+    if (checked)
+        if (ComponentSelectionPage != null)
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.en");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.es");
+}
+
+Component.prototype.spanishInstallToggled = function (checked) {
+    if (checked)
+        if (ComponentSelectionPage != null)
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.en");
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.es");
+}
+
+Component.prototype.originalMusicToggled = function (checked) {
+    if (checked)
+        if (ComponentSelectionPage != null)
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.original_music");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.orchestra_music");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.custom_music");
+}
+
+Component.prototype.orchestraMusicToggled = function (checked) {
+    if (checked)
+        if (ComponentSelectionPage != null)
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.original_music");
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.orchestra_music");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.custom_music");
+}
+
+Component.prototype.customMusicToggled = function (checked) {
+    if (checked)
+        if (ComponentSelectionPage != null)
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.original_music");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.orchestra_music");
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.custom_music");
 }

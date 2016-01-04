@@ -32,134 +32,153 @@
    <property name="verticalSpacing">
     <number>6</number>
    </property>
-   <item row="6" column="0" colspan="2">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>1</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="4" column="0">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="6" column="2">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>The game will be installed in Spanish.</string>
-     </property>
+    <widget class="QWidget" name="widget_hd" native="true">
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>88</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HD Graphics</string>
+      </property>
+     </widget>
     </widget>
    </item>
-   <item row="2" column="0" rowspan="2">
-    <spacer name="horizontalSpacer">
+   <item row="3" column="0">
+    <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>1</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="1" rowspan="2" colspan="2">
-    <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>The game will be installed in English.</string>
-     </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="3">
-    <widget class="QRadioButton" name="englishInstall">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>English</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
+   <item row="6" column="0">
+    <widget class="QWidget" name="widget_music" native="true">
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>40</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Music</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="original">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Original</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="orchestra">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>50</y>
+        <width>95</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Orchestra</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="custom">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>50</y>
+        <width>79</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Custom</string>
+      </property>
+     </widget>
     </widget>
    </item>
-   <item row="5" column="0" colspan="3">
-    <widget class="QRadioButton" name="spanishInstall">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Spanish</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <spacer name="verticalSpacer">
+   <item row="5" column="0">
+    <widget class="Line" name="line_2">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>TextLabel</string>
+   <item row="2" column="0">
+    <widget class="QWidget" name="widget_language" native="true">
+     <property name="autoFillBackground">
+      <bool>false</bool>
      </property>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>70</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Language</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="english_install">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>50</y>
+        <width>76</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>English</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="spanish_install">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>50</y>
+        <width>81</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Spanish</string>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>englishInstall</tabstop>
-  <tabstop>spanishInstall</tabstop>
+  <tabstop>english_install</tabstop>
+  <tabstop>spanish_install</tabstop>
+  <tabstop>original</tabstop>
+  <tabstop>orchestra</tabstop>
+  <tabstop>custom</tabstop>
  </tabstops>
  <resources/>
  <connections/>
