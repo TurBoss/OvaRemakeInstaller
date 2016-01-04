@@ -15,6 +15,7 @@
     
     <UserInterfaces>
         <UserInterface>targetwidget.ui</UserInterface>
+        <UserInterface>componentwidget.ui</UserInterface>
     </UserInterfaces>
     
 </Package>

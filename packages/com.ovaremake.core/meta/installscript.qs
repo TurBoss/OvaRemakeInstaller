@@ -9,13 +9,11 @@ var Dir = new function () {
 function Component() {
     component.loaded.connect(this, Component.prototype.installerLoaded);
     installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
+    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
 }
 
 Component.prototype.installerLoaded = function()
 {
-
-    installer.componentByName("com.ovaremake.core.es").setValue("Default", true);
-    
     ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.\Final Fantasy VII\AppPath"));
     if ( !ff7)
         QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 not found" );
@@ -28,6 +26,12 @@ Component.prototype.installerLoaded = function()
             
             widget.windowTitle = "Installation Folder";
             widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
+        }
+    }
+    
+    if (installer.addWizardPage(component, "ComponentWidget", QInstaller.ComponentSelection)) {
+        var widget = gui.pageWidgetByObjectName("DynamicComponentWidget");
+        if (widget != null) {
         }
     }
 }
@@ -60,28 +64,3 @@ Component.prototype.targetChanged = function (text) {
         widget.complete = false;
     }
 }
-
-/*
-Component.prototype.createOperations = function()
-{
-    component.createOperations();
-
-    if (installer.isInstaller()){
-        if (systemInfo.productType === "windows"){
-
-            if (systemInfo.prettyProductName === "Windows XP") {
-
-                dotNet40 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\|NET Framework Setup\\NDP\\v4\Full\\Install") );
-                if ( !dotNet40)
-                    //QMessageBox["warning"]( "netError", ".NET", ".NET 4.0 Not Found" );
-
-                    component.addElevatedOperation("Execute",
-                                            "{0,1602,5100}",
-                                            "@TargetDir@\\dotNetFx40_Full_setup.exe",
-                                            "/norestart");
-                    component.addElevatedOperation("Delete", "@TargetDir@\\dotnet\\dotNetFx40_Full_setup.exe");
-            }
-        }
-    }
-}
-*/
