@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>HD Battle Backgrounds</DisplayName>
+    <Description>HD resources for battles</Description>
+    <Version>0.1.0-1</Version>
+    <ReleaseDate>2015-08-06</ReleaseDate>
+    <!--<Script>installscript.qs</Script>-->
+    <Name>com.ovaremake.core.hd.battles.backgrounds</Name>
+    <SortingPriority>6</SortingPriority>
+    <RequiresAdminRights>true</RequiresAdminRights>    
+</Package>

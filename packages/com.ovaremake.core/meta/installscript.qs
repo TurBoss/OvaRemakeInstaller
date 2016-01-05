@@ -47,6 +47,16 @@ Component.prototype.installerLoaded = function()
             widget.widget_music.custom.toggled.connect(this, Component.prototype.customMusicToggled);
             
             
+            widget.widget_hd.minigames.toggled.connect(this, Component.prototype.minigamesToggled);
+            
+            widget.widget_hd.worldmap.toggled.connect(this, Component.prototype.worldmapToggled);
+            
+            widget.widget_hd.field_backgrounds.toggled.connect(this, Component.prototype.fieldBackgroundsToggled);
+            widget.widget_hd.field_models.toggled.connect(this, Component.prototype.fieldModelsToggled);
+            
+            widget.widget_hd.battle_backgrounds.toggled.connect(this, Component.prototype.battleBackgroundsToggled);
+            widget.widget_hd.battle_models.toggled.connect(this, Component.prototype.battleModelsToggled);
+            
         }
     }
 }
@@ -81,39 +91,127 @@ Component.prototype.targetChanged = function (text) {
 }
 
 Component.prototype.englishInstallToggled = function (checked) {
-    if (checked)
-        if (ComponentSelectionPage != null)
+    if (checked) {
+        if (ComponentSelectionPage != null) {
             ComponentSelectionPage.selectComponent("com.ovaremake.core.en");
             ComponentSelectionPage.deselectComponent("com.ovaremake.core.es");
+        }
+    }
 }
 
 Component.prototype.spanishInstallToggled = function (checked) {
-    if (checked)
-        if (ComponentSelectionPage != null)
+    if (checked) {
+        if (ComponentSelectionPage != null) {
             ComponentSelectionPage.deselectComponent("com.ovaremake.core.en");
             ComponentSelectionPage.selectComponent("com.ovaremake.core.es");
+        }
+    }
 }
 
 Component.prototype.originalMusicToggled = function (checked) {
-    if (checked)
-        if (ComponentSelectionPage != null)
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.original_music");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.orchestra_music");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.custom_music");
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.music.original");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.orchestra");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.custom");
+        }
+    }
 }
 
 Component.prototype.orchestraMusicToggled = function (checked) {
-    if (checked)
-        if (ComponentSelectionPage != null)
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.original_music");
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.orchestra_music");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.custom_music");
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.original");
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.music.orchestra");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.custom");
+        }
+    }
 }
 
 Component.prototype.customMusicToggled = function (checked) {
-    if (checked)
-        if (ComponentSelectionPage != null)
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.original_music");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.orchestra_music");
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.custom_music");
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.original");
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.orchestra");
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.music.custom");
+        }
+    }
+}
+
+Component.prototype.minigamesToggled = function (checked) {
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.minigames");
+        }
+    }
+    else {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.minigames");
+        }
+    } 
+}
+
+Component.prototype.worldmapToggled = function (checked) {
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.worldmap");
+        }
+    }
+    else {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.worlmap");
+        }
+    } 
+}
+
+Component.prototype.fieldBackgroundsToggled = function (checked) {
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.fields.backgrounds");
+        }
+    }
+    else {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.fields.backgrounds");
+        }
+    } 
+}
+
+Component.prototype.fieldModelsToggled = function (checked) {
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.fields.models");
+        }
+    }
+    else {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.fields.models");
+        }
+    } 
+}
+
+Component.prototype.battleBackgroundsToggled = function (checked) {
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.battles.backgrounds");
+        }
+    }
+    else {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.battles.backgrounds");
+        }
+    } 
+}
+
+Component.prototype.battleModelsToggled = function (checked) {
+    if (checked) {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.battles.models");
+        }
+    }
+    else {
+        if (ComponentSelectionPage != null) {
+            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.battles.models");
+        }
+    } 
 }
