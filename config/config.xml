@@ -12,7 +12,7 @@
     <InstallerWindowIcon>ff7icon</InstallerWindowIcon>
 
     <WizardStyle>Aero</WizardStyle>
-    <Watermark>ovaremake.jpg</Watermark>
+    <Watermark>ovaremake.png</Watermark>
 
     <AllowSpaceInPath>true</AllowSpaceInPath>
     <TargetDir>@ApplicationsDir@/Square Soft, Inc/Final Fantasy VII</TargetDir>
