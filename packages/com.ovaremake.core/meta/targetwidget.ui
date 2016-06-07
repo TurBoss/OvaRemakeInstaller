@@ -1,26 +1,63 @@
-<ui>
-<widget class="QWidget" name="TargetWidget">
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TargetWidget</class>
+ <widget class="QWidget" name="TargetWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>333</width>
+    <height>151</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-      <widget class="QLabel" name="label">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Please sellect the FF7 installation disk</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="installDirectory"/>
+     </item>
+     <item>
+      <widget class="QToolButton" name="installChooser">
        <property name="text">
-        <string>Please specify the folder where FF7 is installed.</string>
+        <string>...</string>
        </property>
       </widget>
-    </item>
-    <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLineEdit" name="targetDirectory"/>
-       </item>
-       <item>
-        <widget class="QToolButton" name="targetChooser"/>
-       </item>
-      </layout>
-    </item>
-    <item>
-      <widget class="QLabel" name="labelOverwrite"/>
-    </item>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Destination Path</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="targetDirectory"/>
+     </item>
+     <item>
+      <widget class="QToolButton" name="targetChooser">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelOverwrite"/>
+   </item>
   </layout>
-</widget>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>

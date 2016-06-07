@@ -18,47 +18,87 @@ function Component() {
 
 Component.prototype.installerLoaded = function()
 {
-    ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.\Final Fantasy VII\AppPath"));
-    if ( !ff7)
-        QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 not found" );
+	
+	var installationCanceled = false
+	
+	if (systemInfo.productType === "windows"){
+		if (systemInfo.prettyProductName === "Windows xp"){
+			
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.\Final Fantasy VII\AppPath"));
+			if ( ff7 ){
+				
+				QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 is installed please uninstall it first" );
+				
+				installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 from your computer and make a backup of your saves.</font>");
+				installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
+				installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
+				installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+				installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
+				installer.setDefaultPageVisible(QInstaller.PerformInstallation, false);
+				installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
+				gui.clickButton(buttons.NextButton);
+				installationCanceled = true
+			}
+		}
+		else {
+			
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Square Soft, Inc.\Final Fantasy VII\AppPath"));
+			if ( !ff7 ){
+				QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 is installed please uninstall it first" );
 
-    if (installer.addWizardPage(component, "TargetWidget", QInstaller.TargetDirectory)) {
-        var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-        if (widget != null) {
-            widget.targetDirectory.textChanged.connect(this, Component.prototype.targetChanged);
-            widget.targetChooser.clicked.connect(this, Component.prototype.chooseTarget);
-            
-            widget.windowTitle = "Installation Folder";
-            widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
-        }
-    }
+				installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 from your computer and make a backup of your saves.</font>");
+				installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
+				installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
+				installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+				installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
+				installer.setDefaultPageVisible(QInstaller.PerformInstallation, false);
+				installer.setDefaultPageVisible(QInstaller.LicenseCheck, false);
+				gui.clickButton(buttons.NextButton);
+				installationCanceled = true
+			}
+		}
+	
+	}
 
-    if (installer.addWizardPage(component, "ComponentWidget", QInstaller.ComponentSelection)) {
-        var widget = gui.pageWidgetByObjectName("DynamicComponentWidget");
-        if (widget != null) {
-            widget.windowTitle = "Components";
-            
-            widget.widget_language.english_install.toggled.connect(this, Component.prototype.englishInstallToggled);
-            widget.widget_language.spanish_install.toggled.connect(this, Component.prototype.spanishInstallToggled);
-            
-            
-            widget.widget_music.original.toggled.connect(this, Component.prototype.originalMusicToggled);
-            widget.widget_music.orchestra.toggled.connect(this, Component.prototype.orchestraMusicToggled);
-            widget.widget_music.custom.toggled.connect(this, Component.prototype.customMusicToggled);
-            
-            
-            widget.widget_hd.minigames.toggled.connect(this, Component.prototype.minigamesToggled);
-            
-            widget.widget_hd.worldmap.toggled.connect(this, Component.prototype.worldmapToggled);
-            
-            widget.widget_hd.field_backgrounds.toggled.connect(this, Component.prototype.fieldBackgroundsToggled);
-            widget.widget_hd.field_models.toggled.connect(this, Component.prototype.fieldModelsToggled);
-            
-            widget.widget_hd.battle_backgrounds.toggled.connect(this, Component.prototype.battleBackgroundsToggled);
-            widget.widget_hd.battle_models.toggled.connect(this, Component.prototype.battleModelsToggled);
-            
-        }
-    }
+	if (!installationCanceled){
+		if (installer.addWizardPage(component, "TargetWidget", QInstaller.TargetDirectory)) {
+			var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
+			if (widget != null) {
+				widget.targetDirectory.textChanged.connect(this, Component.prototype.targetChanged);
+				widget.targetChooser.clicked.connect(this, Component.prototype.chooseTarget);
+				
+				widget.windowTitle = "Installation Folders";
+				widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
+			}
+		}
+
+		if (installer.addWizardPage(component, "ComponentWidget", QInstaller.ComponentSelection)) {
+			var widget = gui.pageWidgetByObjectName("DynamicComponentWidget");
+			if (widget != null) {
+				widget.windowTitle = "Components";
+				
+				widget.widget_language.english_install.toggled.connect(this, Component.prototype.englishInstallToggled);
+				widget.widget_language.spanish_install.toggled.connect(this, Component.prototype.spanishInstallToggled);
+				
+				
+				widget.widget_music.original.toggled.connect(this, Component.prototype.originalMusicToggled);
+				widget.widget_music.orchestra.toggled.connect(this, Component.prototype.orchestraMusicToggled);
+				widget.widget_music.custom.toggled.connect(this, Component.prototype.customMusicToggled);
+				
+				
+				widget.widget_hd.minigames.toggled.connect(this, Component.prototype.minigamesToggled);
+				
+				widget.widget_hd.worldmap.toggled.connect(this, Component.prototype.worldmapToggled);
+				
+				widget.widget_hd.field_backgrounds.toggled.connect(this, Component.prototype.fieldBackgroundsToggled);
+				widget.widget_hd.field_models.toggled.connect(this, Component.prototype.fieldModelsToggled);
+				
+				widget.widget_hd.battle_backgrounds.toggled.connect(this, Component.prototype.battleBackgroundsToggled);
+				widget.widget_hd.battle_models.toggled.connect(this, Component.prototype.battleModelsToggled);
+				
+			}
+		}
+	}
 }
 
 // Callback when one is clicking on the button to select where to install your application
