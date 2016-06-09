@@ -19,17 +19,17 @@ function Component() {
 Component.prototype.installerLoaded = function()
 {
 	
-	var installationCanceled = false
+	var installationCanceled = false;
 	
 	if (systemInfo.productType === "windows"){
 		if (systemInfo.prettyProductName === "Windows xp"){
 			
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.\Final Fantasy VII\AppPath"));
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\JauriaStudiosINC.\Final Fantasy VII\AppPath"));
 			if ( ff7 ){
 				
-				QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 is installed please uninstall it first" );
+				QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first" );
 				
-				installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 from your computer and make a backup of your saves.</font>");
+				installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 OVA REMAKE from your computer and make a backup of your saves.</font>");
 				installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
 				installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
 				installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
@@ -42,11 +42,11 @@ Component.prototype.installerLoaded = function()
 		}
 		else {
 			
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Square Soft, Inc.\Final Fantasy VII\AppPath"));
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\JauriaStudiosINC.\Final Fantasy VII\AppPath"));
 			if ( !ff7 ){
-				QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 is installed please uninstall it first" );
+				QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first" );
 
-				installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 from your computer and make a backup of your saves.</font>");
+				installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 OVA REMAKE from your computer and make a backup of your saves.</font>");
 				installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
 				installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
 				installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
@@ -59,16 +59,24 @@ Component.prototype.installerLoaded = function()
 		}
 	
 	}
-
+	
 	if (!installationCanceled){
 		if (installer.addWizardPage(component, "TargetWidget", QInstaller.TargetDirectory)) {
 			var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
 			if (widget != null) {
+				
+				widget.windowTitle = "Installation Folders";
+				
+				widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
+				
+				
+				widget.installComboBox.addItem("True", "True");
+				widget.installComboBox.currentIndexChanged.connect(this, Component.prototype.chooseInstall);
+												
 				widget.targetDirectory.textChanged.connect(this, Component.prototype.targetChanged);
 				widget.targetChooser.clicked.connect(this, Component.prototype.chooseTarget);
 				
-				widget.windowTitle = "Installation Folders";
-				widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
+				widget.complete = false;
 			}
 		}
 
@@ -96,9 +104,19 @@ Component.prototype.installerLoaded = function()
 				widget.widget_hd.battle_backgrounds.toggled.connect(this, Component.prototype.battleBackgroundsToggled);
 				widget.widget_hd.battle_models.toggled.connect(this, Component.prototype.battleModelsToggled);
 				
+				widget.complete = true;
 			}
 		}
 	}
+}
+Component.prototype.chooseInstall = function () {
+    var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
+    if (widget != null) {
+        var newTarget = QFileDialog.getExistingDirectory("Choose your target directory.", widget.targetDirectory.text);
+        if (newTarget != "") {
+            widget.targetDirectory.text = Dir.toNativeSparator(newTarget);
+        }
+    }
 }
 
 // Callback when one is clicking on the button to select where to install your application
@@ -116,7 +134,7 @@ Component.prototype.targetChanged = function (text) {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
         if (text != "") {
-            widget.complete = true;
+			widget.complete = true;
             installer.setValue("TargetDir", text);
             if (installer.fileExists(text + "/components.xml")) {
                 var warning = "<font color='red'>" + qsTr("A previous installation exists in this folder. If you wish to continue, everything will be overwritten.") + "</font>";
@@ -126,7 +144,7 @@ Component.prototype.targetChanged = function (text) {
             }
             return;
         }
-        widget.complete = false;
+		widget.complete = false;
     }
 }
 

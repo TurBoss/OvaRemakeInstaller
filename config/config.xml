@@ -15,6 +15,6 @@
     <Watermark>ovaremake.png</Watermark>
 
     <AllowSpaceInPath>true</AllowSpaceInPath>
-    <TargetDir>@ApplicationsDir@/Square Soft, Inc/Final Fantasy VII</TargetDir>
+    <TargetDir>@ApplicationsDir@/JauriaStudiosINC/FF7 OVA Remake</TargetDir>
     
 </Installer>
