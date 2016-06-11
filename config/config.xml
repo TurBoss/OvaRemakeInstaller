@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
+
     <Name>FF7 OVA Remake</Name>
     <Version>1.0.0</Version>
 
@@ -7,14 +8,23 @@
     <Publisher>JauriaStudios</Publisher>
     <ProductUrl>http://ovaremake.260mb.net/</ProductUrl>
     <RunProgramDescription>FF7 OVA Remake Installer</RunProgramDescription>
-   
+    <MaintenanceToolName>FF7 OVA Remake Maintenance Tool</MaintenanceToolName>
+    <MaintenanceToolIniFile>Maintenance</MaintenanceToolIniFile>
+
     <InstallerApplicationIcon>ff7icon</InstallerApplicationIcon>
-    <InstallerWindowIcon>ff7icon</InstallerWindowIcon>
+    <InstallerWindowIcon>ff7icon64</InstallerWindowIcon>
 
     <WizardStyle>Aero</WizardStyle>
-    <Watermark>ovaremake.png</Watermark>
+    <Logo>ovaremake</Logo>
+    <Watermark>ovaremake</Watermark>
+
+    <WizardDefaultWidth>800</WizardDefaultWidth>
+    <WizardDefaultHeight>600</WizardDefaultHeight>
 
     <AllowSpaceInPath>true</AllowSpaceInPath>
-    <TargetDir>@ApplicationsDir@/JauriaStudiosINC/FF7 OVA Remake</TargetDir>
-    
+    <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
+    <TargetDir>@ApplicationsDir@/JauriaStudios INC/FF7 OVA Remake</TargetDir>
+
+    <RunProgram>>@ApplicationsDir@/JauriaStudios INC/FF7 OVA Remake/ff7config.exe</RunProgram>
+
 </Installer>

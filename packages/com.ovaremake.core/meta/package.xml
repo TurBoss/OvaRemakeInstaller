@@ -3,7 +3,7 @@
     <DisplayName>FF7 OVA Remake Core</DisplayName>
     <Description>Minimal Files needed to play the OVA</Description>
     <Version>0.1.0-1</Version>
-    <ReleaseDate>2015-08-06</ReleaseDate>
+    <ReleaseDate>2016-06-11</ReleaseDate>
     <Script>installscript.qs</Script>
     <Licenses>
         <License name="Readme" file="Readme.txt"/>
@@ -11,11 +11,11 @@
     <Name>com.ovaremake.core</Name>
     <SortingPriority>10</SortingPriority>
     <RequiresAdminRights>true</RequiresAdminRights>
-    
-    
+
+
     <UserInterfaces>
         <UserInterface>targetwidget.ui</UserInterface>
         <UserInterface>componentwidget.ui</UserInterface>
     </UserInterfaces>
-    
+
 </Package>
