@@ -278,16 +278,17 @@ Component.prototype.createOperations = function() {
 createRegistryKeys = function() {
 	
 	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_install_Jauria.reg");
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_opengl_Jauria.reg");
 	
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data");
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataFrive", "F:\\");
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", "F:\\FF7\\MOVIES\\");
 	
-	QMessageBox["warning"]( "Error", "FF7", "test123" );
+	QMessageBox["warning"]( "Error", "FF7", "FF7 Config will start. Please select a sound card under the soud tab" );
 	
-	component.addElevatedOperation("Execute", "@TargetDir@\\FF7Config.exe");
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "@TargetDir@\\FF7Config.exe", "/lol");
+	
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_opengl_Jauria.reg");
 	
 	/*
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DiskNo", 0);
