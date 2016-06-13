@@ -270,32 +270,42 @@ Component.prototype.createOperations = function() {
         }
     }
     else if (installer.isUninstaller()) {
-		QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first" );
-		component.addElevatedOperation("Execute", "cmd", "/C", "echo", "do nothing", "UNDOEXECUTE", "cmd", "/C", "reg", "delete", "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Software\test","/f")
+		QMessageBox["warning"]( "Error", "FF7", "test123" );
+		//component.addElevatedOperation("Execute", "cmd", "/C", "echo", "do nothing", "UNDOEXECUTE", "cmd", "/C", "reg", "delete", "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Software\test","/f")
 	}
 }
 
 createRegistryKeys = function() {
-
+	
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_install_Jauria.reg");
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_opengl_Jauria.reg");
+	
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataFrive", "F:\\");
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataFrive", "F:\\");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", "F:\\FF7\\MOVIES\\");
+	
+	QMessageBox["warning"]( "Error", "FF7", "test123" );
+	
+	component.addElevatedOperation("Execute", "@TargetDir@\\FF7Config.exe");
+	
+	/*
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DiskNo", 0);
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "FullInstall", 0);
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", "F:\\FF7\\MOVIES\\");
 
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/DD_GUID", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Driver", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/DriverPath", "ff7_opengl.fgd");
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Mode", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Options", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Driver", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/DriverPath", "ff7_opengl.fgd");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Mode", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Options", 0);
 
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MIDI_data", "GENERAL_MIDI");
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MIDI_DeviceID", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MusicVolume", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/Options", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MIDI_DeviceID", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MusicVolume", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/Options", 0);
 
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Options", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/SFXVolume", 0);
-  component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Sound_GUID", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Options", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/SFXVolume", 0);
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Sound_GUID", 0);
+	*/
 }

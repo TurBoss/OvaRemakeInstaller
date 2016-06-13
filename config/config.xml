@@ -25,6 +25,4 @@
     <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
     <TargetDir>@ApplicationsDir@/JauriaStudios INC/FF7 OVA Remake</TargetDir>
 
-    <RunProgram>>@ApplicationsDir@/JauriaStudios INC/FF7 OVA Remake/ff7config.exe</RunProgram>
-
 </Installer>
