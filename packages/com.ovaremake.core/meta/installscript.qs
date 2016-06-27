@@ -13,7 +13,7 @@ function Component() {
     ComponentSelectionPage = gui.pageById(QInstaller.ComponentSelection);
 
     installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
-    //installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
     installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
 }
 
@@ -24,10 +24,10 @@ Component.prototype.installerLoaded = function()
 
 	if (systemInfo.productType === "windows"){
 		if (systemInfo.prettyProductName === "Windows xp"){
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\JauriaStudiosINC.\Final Fantasy VII\AppPath"));
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\JauriaStudios INC\FF VII OVA Remake\AppPath"));
 		}
 		else {
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\JauriaStudiosINC.\Final Fantasy VII\AppPath"));
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\JauriaStudios INC\FF VII OVA Remake\AppPath"));
 		}
 		if ( !ff7 ){
 			QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first" );
@@ -54,8 +54,9 @@ Component.prototype.installerLoaded = function()
 
 				widget.windowTitle = "Installation Folders";
 
-				//widget.installComboBox.setCurrentText("york")
-
+				widget.installDirectory.textChanged.connect(this, Component.prototype.installChanged);
+				widget.installChooser.clicked.connect(this, Component.prototype.installTarget);
+				
 				widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
 
 				widget.targetDirectory.textChanged.connect(this, Component.prototype.targetChanged);
@@ -105,6 +106,35 @@ Component.prototype.chooseInstall = function () {
     }
 }
 */
+
+Component.prototype.installTarget = function () {
+    var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
+    if (widget != null) {
+		var installPath = QFileDialog.getExistingDirectory("Choose your Install directory.", "C:");
+        if (installPath != "") {
+            widget.installDirectory.text = Dir.toNativeSparator(installPath);
+        }
+    }
+}
+
+Component.prototype.installChanged = function (text) {
+    var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
+    if (widget != null) {
+        if (text != "") {
+            if (installer.fileExists(text + "/FF7inst.exe")) {
+				var msg = "<font color='green'>" + qsTr("installation disc found.") + "</font>";
+                widget.labelOverwrite.text = msg;
+				widget.complete = true;
+            } else {
+                var warning = "<font color='red'>" + qsTr("Can't find a installation disc.") + "</font>";
+                widget.labelOverwrite.text = warning;
+				widget.complete = false;
+            }
+            return;
+        }
+    }
+}
+
 Component.prototype.chooseTarget = function () {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
@@ -119,19 +149,11 @@ Component.prototype.targetChanged = function (text) {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
         if (text != "") {
-			widget.complete = true;
             installer.setValue("TargetDir", text);
-            /*
-            if (installer.fileExists(text + "/components.xml")) {
-                var warning = "<font color='red'>" + qsTr("A previous installation exists in this folder. If you wish to continue, everything will be overwritten.") + "</font>";
-                widget.labelOverwrite.text = warning;
-            } else {
-                widget.labelOverwrite.text = "";
-            }
-            */
-            return;
         }
-		widget.complete = false;
+        else {
+			widget.complete = false
+		}
     }
 }
 
