@@ -7,6 +7,8 @@ var Dir = new function () {
 };
 
 function Component() {
+	
+	var installdisk = "";
 
     component.loaded.connect(this, Component.prototype.installerLoaded);
 
@@ -95,17 +97,6 @@ Component.prototype.installerLoaded = function()
 		}
 	}
 }
-/*
-Component.prototype.chooseInstall = function () {
-    var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget != null) {
-        var newTarget = QFileDialog.getExistingDirectory("Choose your target directory.", widget.targetDirectory.text);
-        if (newTarget != "") {
-            widget.targetDirectory.text = Dir.toNativeSparator(newTarget);
-        }
-    }
-}
-*/
 
 Component.prototype.installTarget = function () {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
@@ -125,6 +116,7 @@ Component.prototype.installChanged = function (text) {
 				var msg = "<font color='green'>" + qsTr("installation disc found.") + "</font>";
                 widget.labelOverwrite.text = msg;
 				widget.complete = true;
+				Component.installDisk = text;
             } else {
                 var warning = "<font color='red'>" + qsTr("Can't find a installation disc.") + "</font>";
                 widget.labelOverwrite.text = warning;
@@ -288,7 +280,10 @@ Component.prototype.createOperations = function() {
 
     if (installer.isInstaller()) {
         if (systemInfo.productType === "windows") {
-			     createRegistryKeys();
+			QMessageBox["warning"]( "Error", "FF7", "FF7 Config will start. Please select a sound card under the soud tab" );
+			QMessageBox["warning"]( "Error", "FF7", Component.installDisk );
+			component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "@TargetDir@\\FF7Config.exe", "/lol");
+			createRegistryKeys();
         }
     }
     else if (installer.isUninstaller()) {
@@ -305,10 +300,6 @@ createRegistryKeys = function() {
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data");
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataFrive", "F:\\");
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", "F:\\FF7\\MOVIES\\");
-	
-	QMessageBox["warning"]( "Error", "FF7", "FF7 Config will start. Please select a sound card under the soud tab" );
-	
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "@TargetDir@\\FF7Config.exe", "/lol");
 	
 	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_opengl_Jauria.reg");
 	
