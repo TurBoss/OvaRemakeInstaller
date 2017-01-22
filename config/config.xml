@@ -8,21 +8,22 @@
     <Publisher>JauriaStudios INC</Publisher>
     <ProductUrl>http://ovaremake.mooo.com</ProductUrl>
     <RunProgramDescription>FF7 OVA Remake Installer</RunProgramDescription>
-    <MaintenanceToolName>FF7 OVA Remake Maintenance Tool</MaintenanceToolName>
-    <MaintenanceToolIniFile>Update</MaintenanceToolIniFile>
+    <MaintenanceToolName>FF7 OVA Remake Maintenance</MaintenanceToolName>
+    <MaintenanceToolIniFile>Maintenance</MaintenanceToolIniFile>
 
     <InstallerApplicationIcon>ff7icon</InstallerApplicationIcon>
     <InstallerWindowIcon>ff7icon64</InstallerWindowIcon>
 
-    <WizardStyle>Aero</WizardStyle>
+    <WizardStyle>Modern</WizardStyle>
     <Logo>ovaremake</Logo>
     <Watermark>ovaremake</Watermark>
 
-    <WizardDefaultWidth>800</WizardDefaultWidth>
-    <WizardDefaultHeight>600</WizardDefaultHeight>
+    <WizardDefaultWidth>640</WizardDefaultWidth>
+    <WizardDefaultHeight>400</WizardDefaultHeight>
 
     <AllowSpaceInPath>true</AllowSpaceInPath>
     <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
-    <TargetDir>@ApplicationsDir@/JauriaStudios INC/FF7 OVA Remake</TargetDir>
+    <TargetDir>C:/games/JauriaStudios INC/FF7 OVA Remake</TargetDir>
+    <ControlScript>controlscript.js</ControlScript>
 
 </Installer>

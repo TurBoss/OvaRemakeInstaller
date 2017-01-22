@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Installation scripts</DisplayName>
+    <Description>The installation scripts</Description>
+    <Version>1.0</Version>
+    <ReleaseDate>2017-01-22</ReleaseDate>
+    <Name>com.ovaremake.backend</Name>
+    <virtual>true</virtual>
+    <Script>installscript.js</Script>
+    <UserInterfaces>
+        <UserInterface>targetwidget.ui</UserInterface>
+    </UserInterfaces>
+</Package>
