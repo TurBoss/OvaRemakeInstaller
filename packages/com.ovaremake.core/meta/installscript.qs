@@ -5,34 +5,34 @@ var Dir = new function () {
         return path;
     }
 };
-
 function Component() {
 	
-	var installdisk = "";
 
     component.loaded.connect(this, Component.prototype.installerLoaded);
 
-    ComponentSelectionPage = gui.pageById(QInstaller.ComponentSelection);
-
     installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
-    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    installer.setDefaultPageVisible(QInstaller.ComponentSelection, true);
     installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
 }
 
 Component.prototype.installerLoaded = function()
 {
 
+	installDisk = "D:\\";
+	installPath = "C:\\Games\\FF7 OVA Remake";
 	var installationCanceled = false;
+
+	var ff7 = 0;
 
 	if (systemInfo.productType === "windows"){
 		if (systemInfo.prettyProductName === "Windows xp"){
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\JauriaStudios INC\FF VII OVA Remake\AppPath"));
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\\JauriaStudios INC\\FF VII OVA Remake\\AppPath"));
 		}
 		else {
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\JauriaStudios INC\FF VII OVA Remake\AppPath"));
+			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\\SOFTWARE\WOW6432Node\\JauriaStudios INC\\FF VII OVA Remake\\AppPath"));
 		}
 		if ( !ff7 ){
-			QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first" );
+			QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first");
 
 			installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 OVA REMAKE from your computer and make a backup of your saves.</font>");
 
@@ -45,7 +45,7 @@ Component.prototype.installerLoaded = function()
 
 			gui.clickButton(buttons.NextButton);
 
-			installationCanceled = true
+			installationCanceled = true;
 		}
 	}
 
@@ -54,45 +54,18 @@ Component.prototype.installerLoaded = function()
 			var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
 			if (widget != null) {
 
-				widget.windowTitle = "Installation Folders";
-
-				widget.installDirectory.textChanged.connect(this, Component.prototype.installChanged);
-				widget.installChooser.clicked.connect(this, Component.prototype.installTarget);
-				
-				widget.targetDirectory.text = Dir.toNativeSparator(installer.value("TargetDir"));
-
-				widget.targetDirectory.textChanged.connect(this, Component.prototype.targetChanged);
-				widget.targetChooser.clicked.connect(this, Component.prototype.chooseTarget);
+				widget.windowTitle = "Installation Directories";
 
 				widget.complete = false;
-			}
-		}
-
-		if (installer.addWizardPage(component, "ComponentWidget", QInstaller.ComponentSelection)) {
-			var widget = gui.pageWidgetByObjectName("DynamicComponentWidget");
-			if (widget != null) {
-				widget.windowTitle = "Components";
-
-				widget.widget_language.english_install.toggled.connect(this, Component.prototype.englishInstallToggled);
-				widget.widget_language.spanish_install.toggled.connect(this, Component.prototype.spanishInstallToggled);
-
-
-				widget.widget_music.original.toggled.connect(this, Component.prototype.originalMusicToggled);
-				widget.widget_music.orchestra.toggled.connect(this, Component.prototype.orchestraMusicToggled);
-				widget.widget_music.custom.toggled.connect(this, Component.prototype.customMusicToggled);
-
-
-				widget.widget_hd.minigames.toggled.connect(this, Component.prototype.minigamesToggled);
-
-				widget.widget_hd.worldmap.toggled.connect(this, Component.prototype.worldmapToggled);
-
-				widget.widget_hd.field_backgrounds.toggled.connect(this, Component.prototype.fieldBackgroundsToggled);
-				widget.widget_hd.field_models.toggled.connect(this, Component.prototype.fieldModelsToggled);
-
-				widget.widget_hd.battle_backgrounds.toggled.connect(this, Component.prototype.battleBackgroundsToggled);
-				widget.widget_hd.battle_models.toggled.connect(this, Component.prototype.battleModelsToggled);
-
-				//widget.complete = true;
+				
+				widget.targetDirectory.textChanged.connect(this, Component.prototype.targetChanged);
+				widget.installDirectory.textChanged.connect(this, Component.prototype.installChanged);
+				
+				widget.targetChooser.clicked.connect(this, Component.prototype.chooseTarget);
+				widget.installChooser.clicked.connect(this, Component.prototype.installTarget);
+				
+				widget.installDirectory.text = installDisk;
+				widget.targetDirectory.text = installPath;
 			}
 		}
 	}
@@ -101,28 +74,34 @@ Component.prototype.installerLoaded = function()
 Component.prototype.installTarget = function () {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
-		var installPath = QFileDialog.getExistingDirectory("Choose your Install directory.", "C:");
-        if (installPath != "") {
-            widget.installDirectory.text = Dir.toNativeSparator(installPath);
+		
+		var diskPath = QFileDialog.getExistingDirectory("Choose your FF7 Install Disk.", "C:");
+		
+        if (diskPath != "") {
+            widget.installDirectory.text = Dir.toNativeSparator(diskPath);
+			installDisk = Dir.toNativeSparator(diskPath);
         }
     }
 }
 
-Component.prototype.installChanged = function (text) {
+Component.prototype.installChanged = function (path) {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
-        if (text != "") {
-            if (installer.fileExists(text + "/FF7inst.exe")) {
+        if (path != "") {
+            if (installer.fileExists(path + "/FF7inst.exe")) {
+				installDisk = Dir.toNativeSparator(path);
+				
 				var msg = "<font color='green'>" + qsTr("installation disc found.") + "</font>";
                 widget.labelOverwrite.text = msg;
+                
 				widget.complete = true;
-				Component.installDisk = text;
             } else {
                 var warning = "<font color='red'>" + qsTr("Can't find a installation disc.") + "</font>";
                 widget.labelOverwrite.text = warning;
+                
 				widget.complete = false;
             }
-            return;
+			return;
         }
     }
 }
@@ -130,148 +109,27 @@ Component.prototype.installChanged = function (text) {
 Component.prototype.chooseTarget = function () {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
-        var newTarget = QFileDialog.getExistingDirectory("Choose your target directory.", widget.targetDirectory.text);
+        
+        var newTarget = QFileDialog.getExistingDirectory("Choose your target directory.", Component.prototype.installPath);
+        
         if (newTarget != "") {
             widget.targetDirectory.text = Dir.toNativeSparator(newTarget);
+            installPath = Dir.toNativeSparator(newTarget);
         }
+           return;
     }
 }
 
-Component.prototype.targetChanged = function (text) {
+Component.prototype.targetChanged = function (path) {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget != null) {
-        if (text != "") {
-            installer.setValue("TargetDir", text);
+        if (path != "") {
+            installer.setValue("TargetDir", path);
+            installPath = Dir.toNativeSparator(path);
         }
         else {
-			widget.complete = false
+			widget.complete = false;
 		}
-    }
-}
-
-Component.prototype.englishInstallToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.en");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.es");
-        }
-    }
-}
-
-Component.prototype.spanishInstallToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.en");
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.es");
-        }
-    }
-}
-
-Component.prototype.originalMusicToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.music.original");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.orchestra");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.custom");
-        }
-    }
-}
-
-Component.prototype.orchestraMusicToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.original");
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.music.orchestra");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.custom");
-        }
-    }
-}
-
-Component.prototype.customMusicToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.original");
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.music.orchestra");
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.music.custom");
-        }
-    }
-}
-
-Component.prototype.minigamesToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.minigames");
-        }
-    }
-    else {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.minigames");
-        }
-    }
-}
-
-Component.prototype.worldmapToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.worldmap");
-        }
-    }
-    else {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.worlmap");
-        }
-    }
-}
-
-Component.prototype.fieldBackgroundsToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.fields.backgrounds");
-        }
-    }
-    else {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.fields.backgrounds");
-        }
-    }
-}
-
-Component.prototype.fieldModelsToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.fields.models");
-        }
-    }
-    else {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.fields.models");
-        }
-    }
-}
-
-Component.prototype.battleBackgroundsToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.battles.backgrounds");
-        }
-    }
-    else {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.battles.backgrounds");
-        }
-    }
-}
-
-Component.prototype.battleModelsToggled = function (checked) {
-    if (checked) {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.selectComponent("com.ovaremake.core.hd.battles.models");
-        }
-    }
-    else {
-        if (ComponentSelectionPage != null) {
-            ComponentSelectionPage.deselectComponent("com.ovaremake.core.hd.battles.models");
-        }
     }
 }
 
@@ -280,29 +138,56 @@ Component.prototype.createOperations = function() {
 
     if (installer.isInstaller()) {
         if (systemInfo.productType === "windows") {
-			QMessageBox["warning"]( "Error", "FF7", "FF7 Config will start. Please select a sound card under the soud tab" );
-			QMessageBox["warning"]( "Error", "FF7", Component.installDisk );
-			component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "@TargetDir@\\FF7Config.exe", "/lol");
-			createRegistryKeys();
+			
+			installer.gainAdminRights();
+			
+			copyInstallationFiles(installDisk, installPath, 0));
+			copyInstallationFiles(installDisk, installPath, 1));
+			copyInstallationFiles(installDisk, installPath, 2));
+			copyInstallationFiles(installDisk, installPath, 3));
+			
+			component.registerPathForUninstallation(installPath + "\\data", true);
+			component.registerPathForUninstallation(installPath + "\\movies", true);
+			
+			createSetupRegistryKeys();
+			
+			//component.addElevatedOperation("Execute", "{0}", "workingdirectory=@TargetDir@", "@TargetDir@/runff7config.bat");
+			
+			createOpenGLRegistryKeys();
         }
     }
     else if (installer.isUninstaller()) {
-		QMessageBox["warning"]( "Error", "FF7", "test123" );
+		QMessageBox["warning"]( "warning", "CD", "Please inser game disk" );
 		//component.addElevatedOperation("Execute", "cmd", "/C", "echo", "do nothing", "UNDOEXECUTE", "cmd", "/C", "reg", "delete", "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Software\test","/f")
 	}
 }
 
-createRegistryKeys = function() {
+copyInstallationFiles = function(diskPath, gamePath, diskNo) {
+	if (diskNo == 0) {
+		diskPath = diskPath + "\\data";
+		gamePath = gamePath + "\\data";
+		component.addElevatedOperation("Mkdir", gamePath);
+		component.addElevatedOperation("CopyDirectory", diskPath, gamePath);
+	}
+	else if (diskNo != 0){
+		QMessageBox["warning"]( "warning", "CD", "Please inser game disk " + diskNo );
+		diskPath = diskPath + "\\movies";
+		gamePath = gamePath + "\\movies";
+		component.addElevatedOperation("Mkdir", gamePath);
+		component.addElevatedOperation("CopyDirectory", diskPath, gamePath);
+	}
 	
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_install_Jauria.reg");
+}
+
+createSetupRegistryKeys = function() {
 	
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataFrive", "F:\\");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", "F:\\FF7\\MOVIES\\");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataDrive", component.installDisk + "\\");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", component.installDisk + "\\FF7\\MOVIES\\");
 	
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\ff7_opengl_Jauria.reg");
-	
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install_OVA.reg");
+
 	/*
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DiskNo", 0);
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "FullInstall", 0);
@@ -322,4 +207,8 @@ createRegistryKeys = function() {
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/SFXVolume", 0);
 	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Sound_GUID", 0);
 	*/
+}
+
+createOpenGLRegistryKeys = function() {
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_opengl_OVA.reg");
 }

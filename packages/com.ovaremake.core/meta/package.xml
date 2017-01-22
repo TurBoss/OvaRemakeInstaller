@@ -13,9 +13,11 @@
     <RequiresAdminRights>true</RequiresAdminRights>
 
 
+    <Default>true</Default>
+    <ForcedInstallation>true</ForcedInstallation>
+    
     <UserInterfaces>
         <UserInterface>targetwidget.ui</UserInterface>
-        <UserInterface>componentwidget.ui</UserInterface>
     </UserInterfaces>
 
 </Package>

@@ -5,11 +5,11 @@
     <Version>1.0.0</Version>
 
     <Title>FF7 OVA Remake Installer</Title>
-    <Publisher>JauriaStudios</Publisher>
-    <ProductUrl>http://ovaremake.260mb.net/</ProductUrl>
+    <Publisher>JauriaStudios INC</Publisher>
+    <ProductUrl>http://ovaremake.mooo.com</ProductUrl>
     <RunProgramDescription>FF7 OVA Remake Installer</RunProgramDescription>
     <MaintenanceToolName>FF7 OVA Remake Maintenance Tool</MaintenanceToolName>
-    <MaintenanceToolIniFile>Maintenance</MaintenanceToolIniFile>
+    <MaintenanceToolIniFile>Update</MaintenanceToolIniFile>
 
     <InstallerApplicationIcon>ff7icon</InstallerApplicationIcon>
     <InstallerWindowIcon>ff7icon64</InstallerWindowIcon>
