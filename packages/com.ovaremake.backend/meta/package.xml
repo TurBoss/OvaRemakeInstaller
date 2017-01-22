@@ -6,6 +6,8 @@
     <ReleaseDate>2017-01-22</ReleaseDate>
     <Name>com.ovaremake.backend</Name>
     <virtual>true</virtual>
+    <Default>true</Default>
+    <ForcedInstallation>true</ForcedInstallation>
     <Script>installscript.js</Script>
     <UserInterfaces>
         <UserInterface>targetwidget.ui</UserInterface>
