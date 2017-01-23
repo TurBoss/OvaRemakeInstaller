@@ -10,4 +10,5 @@
     <Licenses>
         <License name="Readme" file="Readme.txt"/>
     </Licenses>
+    <Dependencies>com.ovaremake.backend</Dependencies>
 </Package>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
-    <DisplayName>Installation scripts</DisplayName>
-    <Description>The installation scripts</Description>
+    <DisplayName>Installation Script</DisplayName>
+    <Description>The installation Script</Description>
     <Version>1.0</Version>
     <ReleaseDate>2017-01-22</ReleaseDate>
     <Name>com.ovaremake.backend</Name>

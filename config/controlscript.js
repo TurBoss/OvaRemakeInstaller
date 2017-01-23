@@ -9,11 +9,12 @@ var Dir = new function ()
 
 function Controller()
 {
-    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
+    installer.setDefaultPageVisible(QInstaller.ComponentSelection, true);
     if (systemInfo.productType === "windows")
 		installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
 		
     installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
+    installer.setValue("disk",0);
 	
 }
 
