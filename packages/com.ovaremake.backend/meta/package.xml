@@ -12,4 +12,5 @@
     <UserInterfaces>
         <UserInterface>targetwidget.ui</UserInterface>
     </UserInterfaces>
+    <RequiresAdminRights>true</RequiresAdminRights>
 </Package>

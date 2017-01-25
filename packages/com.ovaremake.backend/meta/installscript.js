@@ -1,8 +1,9 @@
 var Dir = new function ()
 {
     this.toNativeSparator = function (path) {
-        if (systemInfo.productType === "windows")
-            return path.replace(/\//g, '\\');
+        if (systemInfo.productType == "windows")
+			path = path.replace(/\//g, '\\');
+            return path
         return path;
     }
 }
@@ -75,7 +76,7 @@ Component.prototype.installTarget = function ()
 	var diskPath = QFileDialog.getExistingDirectory("Choose your FF7 Install Disk.", "D:\\");
 		
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget !== null) {
+    if (widget != null) {
         if (diskPath !== "") {
             widget.installDirectory.text = Dir.toNativeSparator(diskPath);
 			installer.setValue("diskPath", diskPath);
@@ -86,8 +87,8 @@ Component.prototype.installTarget = function ()
 Component.prototype.installChanged = function (path)
 {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget !== null) {
-        if (path !== "") {
+    if (widget != null) {
+        if (path != "") {
             if (installer.fileExists(path + "//FF7inst.exe")) {
 				installer.setValue("diskPath", path);
 				
@@ -109,13 +110,13 @@ Component.prototype.installChanged = function (path)
 Component.prototype.chooseTarget = function ()
 {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget !== null) {
+    if (widget != null) {
         
         var newTarget = QFileDialog.getExistingDirectory("Choose your target directory.", Component.prototype.installPath);
         
-        if (newTarget !== "") {
+        if (newTarget != "") {
             widget.targetDirectory.text = Dir.toNativeSparator(newTarget);
-			installer.setValue("installPath", newTarget);
+			installer.setValue("TargetDir", newTarget);
         }
            return;
     }
@@ -125,7 +126,7 @@ Component.prototype.targetChanged = function (path)
 {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget !== null) {
-        if (path !== "") {
+        if (path != "") {
             installer.setValue("TargetDir", path);
         }
         else {
@@ -138,13 +139,10 @@ Component.prototype.createOperations = function()
 {
     component.createOperations();
     
-    if (installer.isInstaller()) {
-        if (systemInfo.productType === "windows") {
-			//createSetupRegistryKeys();
-			//createOpenGLRegistryKeys();
-			//createAudioRegitryKeys();
-        }
-    }
+	createSetupRegistryKeys();
+	createOpenGLRegistryKeys();
+	createAudioRegitryKeys();
+	createCompatibilityFlags();
 }
 
 var createSetupRegistryKeys = function()
@@ -152,30 +150,10 @@ var createSetupRegistryKeys = function()
 	
 	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
 	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\");
+	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\movies\\");
 	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataDrive", component.installDisk + "\\");
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", component.installDisk + "\\FF7\\MOVIES\\");
 	
 	component.addOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install_OVA.reg");
-
-	/*
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DiskNo", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "FullInstall", 0);
-
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/DD_GUID", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Driver", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/DriverPath", "ff7_opengl.fgd");
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Mode", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Graphics/Options", 0);
-
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MIDI_data", "GENERAL_MIDI");
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MIDI_DeviceID", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/MusicVolume", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/MIDI/Options", 0);
-
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Options", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/SFXVolume", 0);
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "1.00/Sound/Sound_GUID", 0);
-	*/
 }
 
 var createOpenGLRegistryKeys = function()
@@ -185,5 +163,12 @@ var createOpenGLRegistryKeys = function()
 
 var createAudioRegitryKeys = function()
 {
-	component.addOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install_OVA.reg");
+	component.addOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "@TargetDir@\\Tools\\findSoundCard.bat");
+}
+
+var createCompatibilityFlags = function()
+{
+	installer.gainAdminRights();
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", Dir.toNativeSparator("@TargetDir@\\Tools\\fileFlags\\main.exe"), Dir.toNativeSparator("@TargetDir@\\ff7.exe"));
+	installer.dropAdminRights();
 }

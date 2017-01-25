@@ -1,0 +1,52 @@
+object Form1: TForm1
+  Left = 493
+  Height = 188
+  Top = 266
+  Width = 211
+  Caption = 'Form1'
+  ClientHeight = 188
+  ClientWidth = 211
+  Font.CharSet = SHIFTJIS_CHARSET
+  Font.Height = -16
+  Font.Name = '@Adobe Fan Heiti Std B'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  LCLVersion = '1.6.2.0'
+  object Button1: TButton
+    Left = 0
+    Height = 48
+    Top = 140
+    Width = 211
+    Align = alBottom
+    Caption = 'Done'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 20
+    Top = 40
+    Width = 145
+    Caption = 'Insert game disk No'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 176
+    Height = 20
+    Top = 40
+    Width = 9
+    Caption = '0'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 48
+    Height = 20
+    Top = 96
+    Width = 107
+    Caption = 'Disk not found'
+    ParentColor = False
+    Visible = False
+  end
+end
