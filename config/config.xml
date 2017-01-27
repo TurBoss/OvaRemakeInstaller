@@ -25,5 +25,6 @@
     <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
     <TargetDir>C:/games/JauriaStudios INC/FF7 OVA Remake</TargetDir>
     <ControlScript>controlscript.js</ControlScript>
+    <AdminTargetDir>@rootDir@/testinstall</AdminTargetDir>
 
 </Installer>

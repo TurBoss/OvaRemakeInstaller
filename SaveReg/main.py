@@ -17,12 +17,12 @@ def set_reg(name, value):
         return False
 
 
-def main(path):
-    if set_reg(path, "$ DWM8And16BitMitigation WINXPSP3"):
+def main(args):
+    if set_reg(args[1], args[2]):
         sys.exit(0)
     else:
         sys.exit(1)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv)

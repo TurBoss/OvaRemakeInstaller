@@ -15,7 +15,7 @@ function Component()
 
 Component.prototype.installerLoaded = function()
 {
-	installDisk = "D:";
+	installDisk = "D:\\";
 	installPath = "C:\\games\\JauriaStudios INC\\FF7 OVA Remake";
 	installationCanceled = false;
 	
@@ -137,38 +137,46 @@ Component.prototype.targetChanged = function (path)
 
 Component.prototype.createOperations = function()
 {
+	
     component.createOperations();
     
+	installer.gainAdminRights();
+	
+    createBaseDirectory();
 	createSetupRegistryKeys();
 	createOpenGLRegistryKeys();
-	createAudioRegitryKeys();
 	createCompatibilityFlags();
+	createAudioRegistryKeys();
 }
 
 var createSetupRegistryKeys = function()
 {
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")));
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\movies");
+	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataDrive", Dir.toNativeSparator(installer.value("diskPath")));
 	
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\");
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\movies\\");
-	component.addOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataDrive", component.installDisk + "\\");
-	
-	component.addOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install_OVA.reg");
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install_OVA.reg");
 }
 
 var createOpenGLRegistryKeys = function()
 {
-	component.addOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_opengl_OVA.reg");
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_opengl_OVA.reg");
 }
 
-var createAudioRegitryKeys = function()
+var createAudioRegistryKeys = function()
 {
-	component.addOperation("Execute", "workingdirectory=@TargetDir@", "{0}", "cmd", "/C", "@TargetDir@\\Tools\\findSoundCard.bat");
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "@TargetDir@\\Tools\\findSoundCard.bat");
 }
 
 var createCompatibilityFlags = function()
 {
-	installer.gainAdminRights();
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@", "{0}", Dir.toNativeSparator("@TargetDir@\\Tools\\fileFlags\\main.exe"), Dir.toNativeSparator("@TargetDir@\\ff7.exe"));
-	installer.dropAdminRights();
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools\\fileFlags", "{0}", "@TargetDir@\\Tools\\fileFlags\\main.exe", "@TargetDir@\\ff7.exe", '"$ DWM8And16BitMitigation WINXPSP3"');
+	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools\\fileFlags", "{0}", "@TargetDir@\\Tools\\fileFlags\\main.exe", "@TargetDir@\\Tools\\devcon.exe", '"RUNASADMIN"');
+
+}
+
+var createBaseDirectory = function()
+{
+	component.addOperation("Mkdir", "@TargetDir@");
 }

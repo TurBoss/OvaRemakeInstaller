@@ -8,9 +8,9 @@
     <virtual>true</virtual>
     <Default>true</Default>
     <ForcedInstallation>true</ForcedInstallation>
+    <RequiresAdminRights>true</RequiresAdminRights>
     <Script>installscript.js</Script>
     <UserInterfaces>
         <UserInterface>targetwidget.ui</UserInterface>
     </UserInterfaces>
-    <RequiresAdminRights>true</RequiresAdminRights>
 </Package>
