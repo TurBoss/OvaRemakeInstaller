@@ -9,7 +9,7 @@ var Dir = new function ()
 
 function Controller()
 {
-    installer.setDefaultPageVisible(QInstaller.ComponentSelection, true);
+    installer.setDefaultPageVisible(QInstaller.ComponentSelection, false);
     if (systemInfo.productType === "windows")
 		installer.setDefaultPageVisible(QInstaller.StartMenuSelection, false);
 		
