@@ -15,9 +15,10 @@
     <InstallerWindowIcon>ff7icon64</InstallerWindowIcon>
 
     <WizardStyle>Modern</WizardStyle>
-    <Logo>ovaremake</Logo>
-    <Watermark>ovaremake</Watermark>
-
+    <Banner>ovaremake-banner.png</Banner>
+    <Watermark>ovaremake-watermak.png</Watermark>
+    <Background>ovaremake-background.png</Background>
+    
     <WizardDefaultWidth>640</WizardDefaultWidth>
     <WizardDefaultHeight>400</WizardDefaultHeight>
 
@@ -25,6 +26,5 @@
     <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
     <TargetDir>C:/games/JauriaStudios INC/FF7 OVA Remake</TargetDir>
     <ControlScript>controlscript.js</ControlScript>
-    <AdminTargetDir>@rootDir@/testinstall</AdminTargetDir>
 
 </Installer>
