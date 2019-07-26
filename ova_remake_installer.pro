@@ -25,7 +25,7 @@ INPUT += $$PWD/packages/com.ovaremake.disk3/meta/package.xml
 
 ovaremake.input = INPUT
 ovaremake.output = $$INSTALLER
-ovaremake.commands = C:\Qt\Tools\QtInstallerFramework\3.0\bin\binarycreator.exe -c $$PWD/config/config.xml -p $$PWD/packages ${QMAKE_FILE_OUT}
+ovaremake.commands = C:\Qt\Tools\QtInstallerFramework\3.1\bin\binarycreator.exe -c $$PWD/config/config.xml -p $$PWD/packages ${QMAKE_FILE_OUT}
 ovaremake.CONFIG += target_predeps no_link combine
 
 QMAKE_EXTRA_COMPILERS += ovaremake
