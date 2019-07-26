@@ -1,10 +1,13 @@
 var Dir = new function ()
 {
     this.toNativeSparator = function (path) {
-        if (systemInfo.productType == "windows")
+        if (systemInfo.productType === "windows") {
 			path = path.replace(/\//g, '\\');
             return path
-        return path;
+        }
+        else {
+            return path;
+        }
     }
 }
 
@@ -18,21 +21,16 @@ Component.prototype.installerLoaded = function()
 	installDisk = "D:\\";
 	installPath = "C:\\games\\JauriaStudios INC\\FF7 OVA Remake";
 	installationCanceled = false;
-	
-	/*
+
+
 	var ff7 = 0;
 
 	if (systemInfo.productType === "windows"){
-		if (systemInfo.prettyProductName === "Windows xp"){
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\SOFTWARE\\JauriaStudios INC\\FF VII OVA Remake\\AppPath"));
-		}
-		else {
-			ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\\SOFTWARE\WOW6432Node\\JauriaStudios INC\\FF VII OVA Remake\\AppPath"));
-		}
-		if ( !ff7 ){
+        ff7 = installer.execute("reg", new Array("HKEY_LOCAL_MACHINE\\SOFTWARE\WOW6432Node\\JauriaStudios INC\\FF VII OVA Remake\\AppPath"));
+        if ( !ff7 ){
 			QMessageBox["warning"]( "Error", "FF7", "Final Fantasy 7 OVA Remake is installed please uninstall it first");
 
-			installer.setValue("FinishedText", "<font color='red' size=3>Please uninstall FF7 OVA REMAKE from your computer and make a backup of your saves.</font>");
+            installer.setValue("FinishedText", "<font color='red' size=3>Please run the maintenance tool from your game install path.</font>");
 
 			installer.setDefaultPageVisible(QInstaller.TargetDirectory, false);
 			installer.setDefaultPageVisible(QInstaller.ReadyForInstallation, false);
@@ -46,12 +44,11 @@ Component.prototype.installerLoaded = function()
 			installationCanceled = true;
 		}
 	}
-	*/
 	
 	if (!installationCanceled){
 		if (installer.addWizardPage(component, "TargetWidget", QInstaller.TargetDirectory)) {
 			var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-			if (widget != null) {
+            if (widget !== null) {
 
 				widget.windowTitle = "Installation Directories";
 
@@ -76,7 +73,7 @@ Component.prototype.installTarget = function ()
 	var diskPath = QFileDialog.getExistingDirectory("Choose your FF7 Install Disk.", "D:\\");
 		
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget != null) {
+    if (widget !== null) {
         if (diskPath !== "") {
             widget.installDirectory.text = Dir.toNativeSparator(diskPath);
 			installer.setValue("diskPath", diskPath);
@@ -87,8 +84,8 @@ Component.prototype.installTarget = function ()
 Component.prototype.installChanged = function (path)
 {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget != null) {
-        if (path != "") {
+    if (widget !== null) {
+        if (path !== "") {
             if (installer.fileExists(path + "//FF7inst.exe")) {
 				installer.setValue("diskPath", path);
 				
@@ -110,11 +107,11 @@ Component.prototype.installChanged = function (path)
 Component.prototype.chooseTarget = function ()
 {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
-    if (widget != null) {
+    if (widget !== null) {
         
         var newTarget = QFileDialog.getExistingDirectory("Choose your target directory.", Component.prototype.installPath);
         
-        if (newTarget != "") {
+        if (newTarget !== "") {
             widget.targetDirectory.text = Dir.toNativeSparator(newTarget);
 			installer.setValue("TargetDir", newTarget);
         }
@@ -126,7 +123,7 @@ Component.prototype.targetChanged = function (path)
 {
     var widget = gui.pageWidgetByObjectName("DynamicTargetWidget");
     if (widget !== null) {
-        if (path != "") {
+        if (path !== "") {
             installer.setValue("TargetDir", path);
         }
         else {

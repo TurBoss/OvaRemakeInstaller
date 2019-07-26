@@ -1,9 +1,13 @@
 var Dir = new function ()
 {
     this.toNativeSparator = function (path) {
-        if (systemInfo.productType === "windows")
-            return path.replace(/\//g, '\\');
-        return path;
+        if (systemInfo.productType === "windows") {
+            path = path.replace(/\//g, '\\');
+            return path
+        }
+        else {
+            return path;
+        }
     }
 }
 
