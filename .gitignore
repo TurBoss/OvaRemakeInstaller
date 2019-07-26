@@ -1,3 +1,10 @@
 OvaRemake.exe
 
+*.pyc
+
+*.pyd
+
+SaveReg/\.idea/
+
+SaveReg/venv/
 *.user

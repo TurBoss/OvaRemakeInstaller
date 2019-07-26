@@ -9,7 +9,7 @@ Component.prototype.createOperations = function()
 
 var copyInstallationFiles = function(diskPath, gamePath)
 {
-	
+    diskName = "FF7INSTALL"
 	diskPath = diskPath + "\\data";
 	gamePath = gamePath + "\\data";
 	component.addOperation("Mkdir", gamePath);

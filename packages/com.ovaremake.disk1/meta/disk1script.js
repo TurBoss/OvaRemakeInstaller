@@ -9,6 +9,7 @@ Component.prototype.createOperations = function()
 
 var copyInstallationFiles = function(diskPath, gamePath)
 {
+    diskName = "FF7DISC1"
 	diskPath = diskPath + "\\ff7\\movies";
 	gamePath = gamePath + "\\data\\movies";
 	fileCheck = diskPath + "\\bike.avi";
