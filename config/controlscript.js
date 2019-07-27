@@ -27,7 +27,7 @@ Controller.prototype.IntroductionPageCallback = function()
     var widget = gui.currentPageWidget(); // get the current wizard page
     if (widget !== null) {
         widget.title = "FF7 OVA Remake 1.0"; // set the page title
-        widget.MessageLabel.setText("This is the installer of the FF7 OVA Remake MOD. Requires the original 1998 installtion disk UE Version"); // set the welcome text
+        widget.MessageLabel.setText("This is the installer of the FF7 OVA Remake MOD. Requires the original 1998 installtion disk USA Version"); // set the welcome text
     }
 }
 
