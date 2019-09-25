@@ -19,7 +19,7 @@ function Component()
 Component.prototype.installerLoaded = function()
 {
 	installDisk = "D:\\";
-	installPath = "C:\\games\\JauriaStudios INC\\FF7 OVA Remake";
+    installPath = "C:\\Games\\Final7";
 	installationCanceled = false;
 
 
@@ -149,17 +149,17 @@ Component.prototype.createOperations = function()
 
 var createSetupRegistryKeys = function()
 {
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "MoviePath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\movies\\");
-	component.addElevatedOperation("GlobalConfig", "SystemScope", "JauriaStudios INC", "FF VII OVA Remake", "DataDrive", Dir.toNativeSparator(installer.value("diskPath")) + "\\");
+    component.addElevatedOperation("GlobalConfig", "SystemScope", "Square Soft, Inc.", "Final Fantasy VII", "AppPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\");
+    component.addElevatedOperation("GlobalConfig", "SystemScope", "Square Soft, Inc.", "Final Fantasy VII", "DataPath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\");
+    component.addElevatedOperation("GlobalConfig", "SystemScope", "Square Soft, Inc.", "Final Fantasy VII", "MoviePath", Dir.toNativeSparator(installer.value("TargetDir")) + "\\data\\movies\\");
+    component.addElevatedOperation("GlobalConfig", "SystemScope", "Square Soft, Inc.", "Final Fantasy VII", "DataDrive", Dir.toNativeSparator(installer.value("diskPath")));
 	
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install_OVA.reg");
+    component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_install.reg");
 }
 
 var createOpenGLRegistryKeys = function()
 {
-	component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_opengl_OVA.reg");
+    component.addElevatedOperation("Execute", "workingdirectory=@TargetDir@\\Tools", "{0}", "cmd", "/C", "reg", "import", "@TargetDir@\\Tools\\ff7_opengl.reg");
 }
 
 var createAudioRegistryKeys = function()
