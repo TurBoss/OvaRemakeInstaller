@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
-    <DisplayName>Installation Disk1</DisplayName>
-    <Description>The installation Disk1</Description>
+    <DisplayName>Installation Disk2</DisplayName>
+    <Description>The installation Disk2</Description>
     <Version>1.0</Version>
     <ReleaseDate>2017-01-22</ReleaseDate>
-    <Name>com.ovaremake.disk1</Name>
+    <Name>com.turbo.disk2</Name>
     <virtual>true</virtual>
     <Default>true</Default>
     <ForcedInstallation>true</ForcedInstallation>
-    <Script>disk1script.js</Script>
-    <Dependencies>com.ovaremake.data</Dependencies>
+    <Script>disk2script.js</Script>
+    <Dependencies>com.turbo.disk1</Dependencies>
 </Package>

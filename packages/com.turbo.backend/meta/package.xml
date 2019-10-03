@@ -4,7 +4,7 @@
     <Description>The installation Script</Description>
     <Version>1.0</Version>
     <ReleaseDate>2017-01-22</ReleaseDate>
-    <Name>com.ovaremake.backend</Name>
+    <Name>com.turbo.backend</Name>
     <virtual>true</virtual>
     <Default>true</Default>
     <ForcedInstallation>true</ForcedInstallation>

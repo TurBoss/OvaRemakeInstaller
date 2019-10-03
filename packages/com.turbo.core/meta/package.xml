@@ -4,11 +4,11 @@
     <Description>The mod files</Description>
     <Version>1.0</Version>
     <ReleaseDate>2017-01-22</ReleaseDate>
-    <Name>com.ovaremake.core</Name>
+    <Name>com.turbo.core</Name>
+    <virtual>true</virtual>
     <Default>true</Default>
     <ForcedInstallation>true</ForcedInstallation>
-    <Licenses>
-        <License name="Readme" file="Readme.txt"/>
-    </Licenses>
-    <Dependencies>com.ovaremake.backend</Dependencies>
+    <RequiresAdminRights>true</RequiresAdminRights>
+    <Script>corescript.js</Script>
+    <Dependencies>com.turbo.backend</Dependencies>
 </Package>

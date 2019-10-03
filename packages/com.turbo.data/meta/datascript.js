@@ -1,5 +1,6 @@
-function Component()
-{
+
+function Component(){
+
 }
 
 Component.prototype.createOperations = function()

@@ -26,8 +26,8 @@ FOR /F "tokens=*" %%i IN (' %CMD% ') DO (
 	
 	SET GUID=!BYTE1!!BYTE2!!BYTE3!!BYTE4!!BYTE5!!BYTE6!!BYTE7!!BYTE8!!BYTE9!!BYTE10!
 
-	REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\JauriaStudios INC\FF VII OVA Remake\1.00\Sound" /v Sound_GUID /t REG_BINARY /d !GUID! /f
-	REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\JauriaStudios INC\FF VII OVA Remake\1.00\Sound" /v Sound_GUID /t REG_BINARY /d !GUID! /f
+	REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Square Soft, Inc.\Final Fantasy VII\1.00\Sound" /v Sound_GUID /t REG_BINARY /d !GUID! /f
+	REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.\Final Fantasy VII\1.00\Sound" /v Sound_GUID /t REG_BINARY /d !GUID! /f
 	
 	SET /A N+=1
 )
