@@ -26,7 +26,7 @@ INPUT += $$PWD/packages/com.turbo.disk3/meta/package.xml
 
 turboinstaller.input = INPUT
 turboinstaller.output = $$INSTALLER
-turboinstaller.commands = C:\Qt\Tools\QtInstallerFramework\3.1\bin\binarycreator.exe -c $$PWD/config/config.xml -p $$PWD/packages ${QMAKE_FILE_OUT}
+turboinstaller.commands = C:\Qt\Tools\QtInstallerFramework\3.2\bin\binarycreator.exe -c $$PWD/config/config.xml -p $$PWD/packages ${QMAKE_FILE_OUT}
 turboinstaller.CONFIG += target_predeps no_link combine
 
 QMAKE_EXTRA_COMPILERS += turboinstaller

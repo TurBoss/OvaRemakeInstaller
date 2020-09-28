@@ -26,8 +26,8 @@ Controller.prototype.IntroductionPageCallback = function()
 {
     var widget = gui.currentPageWidget(); // get the current wizard page
     if (widget !== null) {
-        widget.title = "TurBoInstaller"; // set the page title
-        widget.MessageLabel.setText("This is a installer for the Final Fantasy 7. Requires the original 1998 installtion disks"); // set the welcome text
+        widget.title = "Installer"; // set the page title
+        widget.MessageLabel.setText("This is a installer for the Final Fantasy 7 OVA REMAKE.\n Requires the original 1998 installtion disks"); // set the welcome text
     }
 }
 
